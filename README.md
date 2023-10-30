@@ -14,9 +14,9 @@ sccache is a [ccache](https://ccache.dev/)-like compiler caching tool. It is use
 
 sccache includes support for caching the compilation of C/C++ code, [Rust](docs/Rust.md), as well as NVIDIA's CUDA using [nvcc](https://docs.nvidia.com/cuda/cuda-compiler-driver-nvcc/index.html), and [clang](https://llvm.org/docs/CompileCudaWithLLVM.html).
 
-sccache also provides [icecream](https://github.com/icecc/icecream)-style distributed compilation (automatic packaging of local toolchains) for all supported compilers (including Rust). The distributed compilation system includes several security features that icecream lacks such as authentication, transport layer encryption, and sandboxed compiler execution on build servers. See [the distributed quickstart](docs/DistributedQuickstart.md) guide for more information.
+sccache also provides [icecream](https://github.com/icecc/icecream)-style distributed compilation (automatic packaging of local toolchains) for all supported compilers (including Rust). The distributed compilation system includes several security features that Icecream lacks such as authentication, transport layer encryption, and sandboxed compiler execution on build servers. See [the distributed quickstart](docs/DistributedQuickstart.md) guide for more information.
 
-sccache is also available as a [GitHub Actions](https://github.com/marketplace/actions/sccache-action) to faciliate the deployment using GitHub Actions cache.
+sccache is also available as a [GitHub Actions](https://github.com/marketplace/actions/sccache-action) to facilitate the deployment using GitHub Actions cache.
 
 ---
 
@@ -51,7 +51,7 @@ There are prebuilt x86-64 binaries available for Windows, Linux (a portable bina
 
 ### macOS
 
-On macOS sccache can be installed via [Homebrew](https://brew.sh/):
+On macOS, sccache can be installed via [Homebrew](https://brew.sh/):
 
 ```bash
 brew install sccache
@@ -73,7 +73,7 @@ scoop install sccache
 
 ### Via cargo
 
-If you have a Rust toolchain installed you can install sccache using cargo. **Note that this will compile sccache from source which is fairly resource-intensive. For CI purposes you should use prebuilt binary packages.**
+If you have a Rust toolchain installed you can install sccache using cargo. **Note that this will compile sccache from the source that is fairly resource-intensive. For CI purposes you should use prebuilt binary packages.**
 
 
 ```bash
@@ -167,7 +167,7 @@ And you can build code as usual without any additional flags in the command line
 Build Requirements
 ------------------
 
-sccache is a [Rust](https://www.rust-lang.org/) program. Building it requires `cargo` (and thus`rustc`). sccache currently requires **Rust 1.67.1**. We recommend you install Rust via [Rustup](https://rustup.rs/).
+sccache is a [Rust](https://www.rust-lang.org/) program. Building it requires `cargo` (and thus 'rustc`). sccache currently requires **Rust 1.67.1**. We recommend you install Rust via [Rustup](https://rustup.rs/).
 
 Build
 -----
@@ -219,7 +219,7 @@ should not reuse the cached results from each other,
 one can set `SCCACHE_C_CUSTOM_CACHE_BUSTER` to a unique value
 that'll be mixed into the hash.
 `MACOSX_DEPLOYMENT_TARGET` and `IPHONEOS_DEPLOYMENT_TARGET` variables
-already exhibit such reuse-suppression behaviour.
+already exhibit such reuse-suppression behavior.
 There are currently no such variables for compiling Rust.
 
 ---
@@ -234,7 +234,7 @@ In situations where the cache contains broken build artifacts, it can be necessa
 Debugging
 ---------
 
-You can set the `SCCACHE_ERROR_LOG` environment variable to a path and set `SCCACHE_LOG` to get the server process to redirect its logging there (including the output of unhandled panics, since the server sets `RUST_BACKTRACE=1` internally).
+You can set the `SCCACHE_ERROR_LOG` environment variable to a path and set `SCCACHE_LOG` to get the server process to redirect its logging there (including the output of unhandled panics since the server sets `RUST_BACKTRACE=1` internally).
 
     SCCACHE_ERROR_LOG=/tmp/sccache_log.txt SCCACHE_LOG=debug sccache
 
@@ -262,18 +262,18 @@ Known Caveats
 
 ### General
 
-* Absolute paths to files must match to get a cache hit. This means that even if you are using a shared cache, everyone will have to build at the same absolute path (i.e. not in `$HOME`) in order to benefit each other. In Rust this includes the source for third party crates which are stored in `$HOME/.cargo/registry/cache` by default.
+* Absolute paths to files must match to get a cache hit. This means that even if you are using a shared cache, everyone will have to build at the same absolute path (i.e. not in `$HOME`) in order to benefit each other. In Rust, this includes the source for third-party crates which are stored in `$HOME/.cargo/registry/cache` by default.
 
 ### Rust
 
-* Crates that invoke the system linker cannot be cached. This includes `bin`, `dylib`, `cdylib`, and `proc-macro` crates. You may be able to improve compilation time of large `bin` crates by converting them to a `lib` crate with a thin `bin` wrapper.
+* Crates that invoke the system linker cannot be cached. This includes `bin`, `dylib`, `cdylib`, and `proc-macro` crates. You may be able to improve the compilation time of large `bin` crates by converting them to a `lib` crate with a thin `bin` wrapper.
 * Incrementally compiled crates cannot be cached. By default, in the debug profile Cargo will use incremental compilation for workspace members and path dependencies. [You can disable incremental compilation.](https://doc.rust-lang.org/cargo/reference/profiles.html#incremental)
 
 [More details on Rust caveats](/docs/Rust.md)
 
 ### Symbolic links
 
-* Symbolic links to sccache won't work. Use hardlinks: `ln sccache /usr/local/bin/cc`
+* Symbolic links to sccache won't work. Use hard-links: `ln sccache /usr/local/bin/cc`
 
 Storage Options
 ---------------
